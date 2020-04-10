@@ -72,10 +72,10 @@ install:
     - echo "test.apr.loc=$HOME/tmp/tomcat-native-build/lib" >> build.properties
 
 
-    
+
 script:
     - ant -q clean
-    - travis_wait 60 "./.travis/antTest.sh"
+    - travis_wait 150 "./.travis/antTest.sh"
 
 after_failure:
     - tail -n 5000 ant-test.log
