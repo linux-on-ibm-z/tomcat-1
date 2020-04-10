@@ -37,7 +37,8 @@ install:
     - echo $ARCH
     - JDK_X64="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz"
     - JDK_s390x="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u232b09.tar.gz"
-    - if test "X$ARCH" = "Xs390x"; then JDK_URL=$JDK_s390x; else JDK_URL=$JDK_X64; fi
+    - if test "$ARCH" = "s390x"; then JDK_URL=$JDK_s390x; else JDK_URL=$JDK_X64; fi
+    - echo $JDK_URL
     - wget -q $JDK_URL && tar xzf OpenJDK*.tar.gz
     - mv jdk8* jdk
     - export JAVA_HOME=`pwd`/jdk
