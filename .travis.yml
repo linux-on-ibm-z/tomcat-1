@@ -15,8 +15,13 @@
 
 dist: bionic
 language: java
-jdk: oraclejdk8
-arch: s390x
+
+jobs:
+    include:
+      - arch: s390x
+        jdk: openjdk11
+      - arch: arm64
+        jdk: openjdk11
 
 addons:
     apt:
@@ -32,18 +37,11 @@ addons:
         - libtool-bin
 
 install:
-    - ARCH=`uname -p`
-    - echo $ARCH
-    - JDK_X64="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz"
-    - JDK_s390x="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.5%2B10/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.5_10.tar.gz"
-    - if test "$ARCH" = "s390x"; then JDK_URL=$JDK_s390x; else JDK_URL=$JDK_X64; fi
-    - echo $JDK_URL
-    - wget -q $JDK_URL && tar xzf OpenJDK*.tar.gz
-    - mv jdk-11* jdk
-    - export JAVA_HOME=`pwd`/jdk
+    - export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
     - wget -q http://mirrors.netix.net/apache/ant/binaries/apache-ant-1.10.7-bin.tar.gz && tar xzf apache-ant-*-bin.tar.gz
     - export ANT_HOME=`pwd`/apache-ant-1.10.7
-    - export PATH="$JAVA_HOME/bin:$ANT_HOME/bin:$PATH"
+    - export PATH="$ANT_HOME/bin:$PATH"
+    - echo $JAVA_HOME
     - java -version
     - ant -version
     - rm -rf $HOME/tmp
