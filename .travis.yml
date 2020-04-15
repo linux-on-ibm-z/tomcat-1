@@ -17,6 +17,7 @@
 dist: bionic
 language: java
 
+
 jobs:
     include:
       - arch: s390x
