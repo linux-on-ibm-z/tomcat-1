@@ -21,8 +21,8 @@ language: java
 
 jobs:
     include:
-      - arch: s390x
-        jdk: openjdk11
+      - arch: amd64
+        jdk: openjdk8
       - arch: arm64
         jdk: oraclejdk8
 
